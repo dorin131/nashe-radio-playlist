@@ -6,7 +6,7 @@
   </head>
   <body ng-app="nashePlaylist" ng-controller="MainController as ctrl">
     <div ng-repeat="song in ctrl.allSongs">
-      <span>{{song.title}}</span>&npsp;<strong>{{song.timesPlayed}}</strong>
+      {{song.title}}&nbsp;(<strong>{{song.timesPlayed}}</strong>)
     </div>
   </body>
 </html>
