@@ -6,6 +6,7 @@ module.exports.init = function(){
 
   var songArray = [];
 
+  getSongs();
   //Get songs every 20 minutes
   setInterval(function() {
     getSongs();
