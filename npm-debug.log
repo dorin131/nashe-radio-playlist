@@ -19,7 +19,7 @@
 9 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:211:5)
 10 verbose pkgid nashe-radio-playlist@0.0.0
 11 verbose cwd /home/dorin/repos/personal/nashe-radio-playlist
-12 error Linux 3.13.0-77-generic
+12 error Linux 3.13.0-87-generic
 13 error argv "/usr/bin/nodejs" "/usr/bin/npm" "start"
 14 error node v4.4.5
 15 error npm  v2.15.5

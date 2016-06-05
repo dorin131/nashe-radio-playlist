@@ -1,12 +1,12 @@
 <html>
   <head>
     <title>Nashe Playlist</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.js"></script>
     <script src="/javascripts/angularApp.js"></script>
   </head>
-  <body ng-app="nashePlaylist" ng-controller="MainController">
-    <div>
-      {{test}}
+  <body ng-app="nashePlaylist" ng-controller="MainController as ctrl">
+    <div ng-repeat="song in ctrl.allSongs">
+      <span>{{song.title}}</span>&npsp;<strong>{{song.timesPlayed}}</strong>
     </div>
   </body>
 </html>
