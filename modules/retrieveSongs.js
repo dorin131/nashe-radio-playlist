@@ -3,17 +3,18 @@ module.exports.init = function(){
   var mongoose = require('mongoose');
   var Song = mongoose.model('Song');
   var existingSong = {};
-
+  var localTime = new Date();
+  var russianTime = new Date();
+  russianTime.setHours(localTime.getHours() + 2);
   var songArray = [];
 
   //Get timestamp for logs
   var t = function() {
-    var time = new Date();
-    var h = time.getHours().toString();
+    var h = russianTime.getHours().toString();
     (h.length < 2) ? h = '0' + h : h = h;
-    var m = time.getMinutes().toString();
+    var m = russianTime.getMinutes().toString();
     (m.length < 2) ? m = '0' + m : m = m;
-    var s = time.getSeconds().toString();
+    var s = russianTime.getSeconds().toString();
     (s.length < 2) ? s = '0' + s : s = s;
     return String(`[${h}:${m}:${s}]`);
   }
@@ -68,11 +69,10 @@ module.exports.init = function(){
   };
 
   incrementCounter = function(song) {
-    todayDate = new Date();
-    if (!((song.substring(0, 5) === existingSong.airTime) && (todayDate.toLocaleDateString() === existingSong.lastTimePlayed.toLocaleDateString()))) {
+    if (!((song.substring(0, 5) === existingSong.airTime) && (russianTime.toLocaleDateString() === existingSong.lastTimePlayed.toLocaleDateString()))) {
       Song.findOneAndUpdate(
         {title: new RegExp(song.substring(6), 'i')},
-        {timesPlayed: existingSong.timesPlayed + 1, airTime: song.substring(0, 5), lastTimePlayed: todayDate},
+        {timesPlayed: existingSong.timesPlayed + 1, airTime: song.substring(0, 5), lastTimePlayed: russianTime},
         function(err, res) {
           if (err) {
             return console.error(t(), 'Error incrementing: ', err);
@@ -87,7 +87,8 @@ module.exports.init = function(){
   addNewSong = function(song) {
     var newSong = new Song({
       title: song.substring(6),
-      airTime: song.substring(0, 5)
+      airTime: song.substring(0, 5),
+      lastTimePlayed: russianTime
     });
     newSong.save(function(err, res) {
       if (err) {
