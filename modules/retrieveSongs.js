@@ -91,6 +91,6 @@ module.exports.init = function(){
   setInterval(function() {
     getSongs();
   //}, 10000);
-  }, 60000 * 20);
+}, 80000 * 20);
 
 };
