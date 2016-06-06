@@ -5,8 +5,17 @@
     <script src="/javascripts/angularApp.js"></script>
   </head>
   <body ng-app="nashePlaylist" ng-controller="MainController as ctrl">
-    <div ng-repeat="song in ctrl.allSongs">
-      {{song.title}}&nbsp;(<strong>{{song.timesPlayed}}</strong>)
-    </div>
+    <table>
+      <tr>
+        <th>Index</th>
+        <th>Track name</th>
+        <th>Times played</th>
+      </tr>
+      <tr ng-repeat="song in ctrl.allSongs track by $index">
+        <td>{{$index}}</td>
+        <td>{{song.title}}</td>
+        <td>{{song.timesPlayed}}</td>
+      </tr>
+    </table>
   </body>
 </html>
