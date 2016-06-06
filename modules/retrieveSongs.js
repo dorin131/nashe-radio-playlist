@@ -26,6 +26,10 @@ module.exports.init = function(){
         } else {
           logger.write('(red)Could not get tracks (Check internet connection)');
         }
+    })
+    .on('error', function(e) {
+      logger.write('(red)Could not connect to server. Retrying in 1 minute.');
+      setTimeout(getSongs, 60000);
     });
   };
 
