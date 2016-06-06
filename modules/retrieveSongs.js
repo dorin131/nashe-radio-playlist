@@ -1,5 +1,4 @@
 module.exports.init = function(){
-  var logger = require('./logger')
   var http = require('http');
   var mongoose = require('mongoose');
   var Song = mongoose.model('Song');
@@ -7,8 +6,20 @@ module.exports.init = function(){
 
   var songArray = [];
 
+  //Get timestamp for logs
+  var t = function() {
+    var time = new Date();
+    var h = time.getHours().toString();
+    (h.length < 2) ? h = '0' + h : h = h;
+    var m = time.getMinutes().toString();
+    (m.length < 2) ? m = '0' + m : m = m;
+    var s = time.getSeconds().toString();
+    (s.length < 2) ? s = '0' + s : s = s;
+    return String(`[${h}:${m}:${s}]`);
+  }
+
   getSongs = function() {
-    logger.write('(bold)Getting last tracks...');
+    console.log(t(), 'Getting last tracks...');
     http.get({
         host: 'radiopleer.com',
         path: '/info/nashe_last_tracks.txt'
@@ -20,15 +31,15 @@ module.exports.init = function(){
               songList += data;
           });
           response.on('end', function() {
-              logger.write('(green)Track list received');
+              console.info(t(), 'Track list received');
               separateSongs(songList);
           });
         } else {
-          logger.write('(red)Could not get tracks (Check internet connection)');
+          console.error(t(), 'Could not get tracks (Check internet connection)');
         }
     })
     .on('error', function(e) {
-      logger.write('(red)Could not connect to server. Retrying in 1 minute.');
+      console.error(t(), 'Could not connect to server. Retrying in 1 minute.');
       setTimeout(getSongs, 60000);
     });
   };
@@ -45,7 +56,7 @@ module.exports.init = function(){
   songExists = function(song) {
     Song.findOne({title: new RegExp(song.substring(6), 'i')}, function(err, res) {
       if (err) {
-        return logger.write('(red)Cannot connect to DB: ', err);
+        return console.error(t(), 'Cannot connect to DB: ', err);
       }
       if (res) {
         existingSong = res;
@@ -64,10 +75,10 @@ module.exports.init = function(){
         {timesPlayed: existingSong.timesPlayed + 1, airTime: song.substring(0, 5), lastTimePlayed: todayDate},
         function(err, res) {
           if (err) {
-            return logger.write('(red)Error incrementing: ', err);
+            return console.error(t(), 'Error incrementing: ', err);
           }
           if (res) {
-            return logger.write('Incremented: ', song.substring(6));
+            return console.log(t(), 'Incremented: ', song.substring(6));
           }
       });
     }
@@ -80,9 +91,9 @@ module.exports.init = function(){
     });
     newSong.save(function(err, res) {
       if (err) {
-        return logger.write('(red)Error saving new track: ', err);
+        return console.error(t(), 'Error saving new track: ', err);
       };
-      logger.write('Added: ' + song.substring(6));
+      console.log(t(), 'Added: ' + song.substring(6));
     });
   };
 
@@ -91,6 +102,6 @@ module.exports.init = function(){
   setInterval(function() {
     getSongs();
   //}, 10000);
-}, 80000 * 20);
+  }, 80000 * 20);
 
 };

@@ -3,11 +3,11 @@
 2 info using npm@2.15.5
 3 info using node@v4.4.5
 4 verbose run-script [ 'prestart', 'start', 'poststart' ]
-5 info prestart nashe-radio-playlist@0.0.0
-6 info start nashe-radio-playlist@0.0.0
+5 info prestart nashe-radio-playlist@1.0.0
+6 info start nashe-radio-playlist@1.0.0
 7 verbose unsafe-perm in lifecycle true
-8 info nashe-radio-playlist@0.0.0 Failed to exec start script
-9 verbose stack Error: nashe-radio-playlist@0.0.0 start: `node ./bin/www`
+8 info nashe-radio-playlist@1.0.0 Failed to exec start script
+9 verbose stack Error: nashe-radio-playlist@1.0.0 start: `node ./bin/www`
 9 verbose stack Exit status 1
 9 verbose stack     at EventEmitter.<anonymous> (/usr/lib/node_modules/npm/lib/utils/lifecycle.js:217:16)
 9 verbose stack     at emitTwo (events.js:87:13)
@@ -17,16 +17,16 @@
 9 verbose stack     at ChildProcess.emit (events.js:172:7)
 9 verbose stack     at maybeClose (internal/child_process.js:827:16)
 9 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:211:5)
-10 verbose pkgid nashe-radio-playlist@0.0.0
+10 verbose pkgid nashe-radio-playlist@1.0.0
 11 verbose cwd /home/dorin/repos/personal/nashe-radio-playlist
 12 error Linux 3.13.0-87-generic
 13 error argv "/usr/bin/nodejs" "/usr/bin/npm" "start"
 14 error node v4.4.5
 15 error npm  v2.15.5
 16 error code ELIFECYCLE
-17 error nashe-radio-playlist@0.0.0 start: `node ./bin/www`
+17 error nashe-radio-playlist@1.0.0 start: `node ./bin/www`
 17 error Exit status 1
-18 error Failed at the nashe-radio-playlist@0.0.0 start script 'node ./bin/www'.
+18 error Failed at the nashe-radio-playlist@1.0.0 start script 'node ./bin/www'.
 18 error This is most likely a problem with the nashe-radio-playlist package,
 18 error not with npm itself.
 18 error Tell the author that this fails on your system:
