@@ -2,16 +2,17 @@
   <head>
     <title>Nashe Playlist</title>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.js"></script>
+    <link href="/node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet" type="text/css" />
     <script src="/javascripts/angularApp.js"></script>
   </head>
   <body ng-app="nashePlaylist" ng-controller="MainController as ctrl">
-    <table>
+    <table class="table table-bordered table-striped">
       <tr>
         <th>Index</th>
-        <th>Track name</th>
-        <th>Times played</th>
+        <th><a href="#" ng-click="ctrl.sortBy = 'title'; ctrl.sortDirection = !ctrl.sortDirection">Track name</a></th>
+        <th><a href="#" ng-click="ctrl.sortBy = 'timesPlayed'; ctrl.sortDirection = !ctrl.sortDirection">Times played</a></th>
       </tr>
-      <tr ng-repeat="song in ctrl.allSongs track by $index">
+      <tr ng-repeat="song in ctrl.allSongs | orderBy:ctrl.sortBy:ctrl.sortDirection">
         <td>{{$index}}</td>
         <td>{{song.title}}</td>
         <td>{{song.timesPlayed}}</td>

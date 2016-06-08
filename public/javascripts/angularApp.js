@@ -3,6 +3,9 @@
 
   app.controller('MainController', ['songsService', function(songsService) {
     var ctrl = this;
+    ctrl.sortDirection = true;
+    ctrl.sortBy = null;
+
     songsService.getAllSongs()
     .then(function(res) {
       ctrl.allSongs = res;
