@@ -20,7 +20,7 @@ module.exports.init = function(){
   }
 
   getSongs = function() {
-    console.log(t(), 'Getting last tracks...');
+    console.info('Getting last tracks...');
     http.get({
         host: 'radiopleer.com',
         path: '/info/nashe_last_tracks.txt'
@@ -32,15 +32,15 @@ module.exports.init = function(){
               songList += data;
           });
           response.on('end', function() {
-              console.info(t(), 'Track list received');
+              console.info('Track list received');
               separateSongs(songList);
           });
         } else {
-          console.error(t(), 'Could not get tracks (Check internet connection)');
+          console.error('Could not get tracks (Check internet connection)');
         }
     })
     .on('error', function(e) {
-      console.error(t(), 'Could not connect to server. Retrying in 1 minute.');
+      console.error('Could not connect to server. Retrying in 1 minute.');
       setTimeout(getSongs, 60000);
     });
   };
@@ -57,7 +57,7 @@ module.exports.init = function(){
   songExists = function(song) {
     Song.findOne({title: new RegExp(song.substring(6), 'i')}, function(err, res) {
       if (err) {
-        return console.error(t(), 'Cannot connect to DB: ', err);
+        return console.error('Cannot connect to DB: ', err);
       }
       if (res) {
         existingSong = res;
@@ -75,10 +75,10 @@ module.exports.init = function(){
         {timesPlayed: existingSong.timesPlayed + 1, airTime: song.substring(0, 5), lastTimePlayed: russianTime},
         function(err, res) {
           if (err) {
-            return console.error(t(), 'Error incrementing: ', err);
+            return console.error('Error incrementing: ', err);
           }
           if (res) {
-            return console.log(t(), 'Incremented: ', song.substring(6));
+            return console.info('Incremented: ', song.substring(6));
           }
       });
     }
@@ -92,9 +92,9 @@ module.exports.init = function(){
     });
     newSong.save(function(err, res) {
       if (err) {
-        return console.error(t(), 'Error saving new track: ', err);
+        return console.error('Error saving new track: ', err);
       };
-      console.log(t(), 'Added: ' + song.substring(6));
+      console.info('Added: ' + song.substring(6));
     });
   };
 
