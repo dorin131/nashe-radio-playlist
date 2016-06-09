@@ -6,17 +6,22 @@
     <script src="/javascripts/angularApp.js"></script>
   </head>
   <body ng-app="nashePlaylist" ng-controller="MainController as ctrl">
-    <table class="table table-bordered table-striped">
-      <tr>
-        <th>Count</th>
-        <th><a href="#" ng-click="ctrl.sortBy = 'title'; ctrl.sortDirection = !ctrl.sortDirection">Track name</a></th>
-        <th><a href="#" ng-click="ctrl.sortBy = 'timesPlayed'; ctrl.sortDirection = !ctrl.sortDirection">Times played</a></th>
-      </tr>
-      <tr ng-repeat="song in ctrl.allSongs | orderBy:ctrl.sortBy:ctrl.sortDirection">
-        <td>{{$index}}</td>
-        <td>{{song.title}}</td>
-        <td>{{song.timesPlayed}}</td>
-      </tr>
-    </table>
+    <div class="text-center">
+      <h1>nashe-radio-playlist</h1>
+    </div>
+    <div class="col-lg-6 col-lg-offset-3 col-sm-12">
+      <table class="table table-bordered table-striped">
+        <tr>
+          <th>Count</th>
+          <th><a href="#" ng-click="ctrl.sortBy = 'title'; ctrl.sortDirection = !ctrl.sortDirection">Track name</a></th>
+          <th><a href="#" ng-click="ctrl.sortBy = 'timesPlayed'; ctrl.sortDirection = !ctrl.sortDirection">Times played</a></th>
+        </tr>
+        <tr ng-repeat="song in ctrl.allSongs | orderBy:ctrl.sortBy:ctrl.sortDirection">
+          <td>{{$index + 1}}</td>
+          <td><a target="_blank" href="http://muzofon.com/search/{{song.title}}">{{song.title}}</a></td>
+          <td>{{song.timesPlayed}}</td>
+        </tr>
+      </table>
+    </div>
   </body>
 </html>

@@ -20,7 +20,7 @@ module.exports.init = function(){
   }
 
   getSongs = function() {
-    console.info('Getting last tracks...');
+    console.info('#blue{Getting last tracks...}');
     http.get({
         host: 'radiopleer.com',
         path: '/info/nashe_last_tracks.txt'
@@ -32,11 +32,11 @@ module.exports.init = function(){
               songList += data;
           });
           response.on('end', function() {
-              console.info('Track list received');
+              console.info('#green{Track list received}');
               separateSongs(songList);
           });
         } else {
-          console.error('Could not get tracks (Check internet connection)');
+          console.error('#red{Could not get tracks (Check internet connection)}');
         }
     })
     .on('error', function(e) {
@@ -78,7 +78,7 @@ module.exports.init = function(){
             return console.error('Error incrementing: ', err);
           }
           if (res) {
-            return console.info('Incremented: ', song.substring(6));
+            return; //console.info('Incremented: ', song.substring(6));
           }
       });
     }
@@ -94,7 +94,7 @@ module.exports.init = function(){
       if (err) {
         return console.error('Error saving new track: ', err);
       };
-      console.info('Added: ' + song.substring(6));
+      console.info('#green{+} ' + song.substring(6));
     });
   };
 
