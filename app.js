@@ -12,6 +12,7 @@ mongoose.connect('mongodb://localhost/nashe');
 
 //Modules
 var retrieveSongs = require('./modules/retrieveSongs');
+var downloadSongs = require('./modules/downloadSongs');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -65,5 +66,6 @@ app.use(function(err, req, res, next) {
 });
 
 retrieveSongs.init();
+downloadSongs.init();
 
 module.exports = app;

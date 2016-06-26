@@ -1,8 +1,7 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+.downloaded {
+  color: green;
 }
 
-a {
-  color: #00B7FF;
+.not-downloaded {
+  color: red;
 }

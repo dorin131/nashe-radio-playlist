@@ -3,12 +3,13 @@
     <title>Nashe Playlist</title>
     <script src="/node_modules/angular/angular.js"></script>
     <link href="/node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="/stylesheets/style.css" rel="stylesheet" type="text/css" />
     <script src="/javascripts/angularApp.js"></script>
   </head>
   <body ng-app="nashePlaylist" ng-controller="MainController as ctrl">
     <div class="text-center">
       <h1>nashe-radio-playlist</h1>
-      <h4><a href="/download">(Download list)</a></h4>
+      <h4><a href="/download"><span class="glyphicon glyphicon-download-alt"></span> Download list</a></h4>
     </div>
     <div class="col-lg-6 col-lg-offset-3 col-sm-12">
       <table class="table table-bordered table-striped">
@@ -16,11 +17,16 @@
           <th>Count</th>
           <th><a href="#" ng-click="ctrl.sortBy = 'title'; ctrl.sortDirection = !ctrl.sortDirection">Track name</a></th>
           <th><a href="#" ng-click="ctrl.sortBy = 'timesPlayed'; ctrl.sortDirection = !ctrl.sortDirection">Times played</a></th>
+          <th><a href="#" ng-click="ctrl.sortBy = 'downloaded'; ctrl.sortDirection = !ctrl.sortDirection">Downloaded</a></th>
         </tr>
         <tr ng-repeat="song in ctrl.allSongs | orderBy:ctrl.sortBy:ctrl.sortDirection">
           <td>{{$index + 1}}</td>
-          <td><a target="_blank" href="http://muzofon.com/search/{{song.title}}">{{song.title}}</a></td>
+          <td><a target="_blank" href="http://go.mail.ru/zaycev?q={{song.title}}">{{song.title}}</a></td>
           <td>{{song.timesPlayed}}</td>
+          <td>
+            <span ng-if="song.downloaded" class="downloaded glyphicon glyphicon-ok"></span>
+            <span ng-if="!song.downloaded" class="not-downloaded glyphicon glyphicon-remove"></span>
+          </td>
         </tr>
       </table>
     </div>

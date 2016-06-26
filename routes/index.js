@@ -5,7 +5,6 @@ var mongoose = require('mongoose');
 var Song = mongoose.model('Song');
 
 var json2csv = require('json2csv');
-var fields = ['id', 'title'];
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -24,13 +23,12 @@ router.get('/songs', function(req, res, next) {
 
 /* Download list */
 router.get('/download', function(req, res, next) {
-  Song.find().lean().exec(function (err, file) {
-    json2csv({ data: file, fields: fields }, function(err, csv) {
+  Song.find({title: /.*/i}).lean().exec(function (err, file) {
+    json2csv({ data: file, fields: ['title'] }, function(err, csv) {
       if (err) console.log(err);
       res.header('content-type','text/csv');
       res.header('content-disposition', 'attachment; filename=songs.csv');
       res.end(csv);
-      console.log(csv);
     });
   });
 });
