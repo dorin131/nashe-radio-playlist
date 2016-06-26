@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports.init = function(){
   var http = require('http');
   var mongoose = require('mongoose');
@@ -9,7 +11,7 @@ module.exports.init = function(){
   var songArray = [];
 
   //Get timestamp for logs
-  var t = function() {
+  function t() {
     var h = russianTime.getHours().toString();
     (h.length < 2) ? h = '0' + h : h = h;
     var m = russianTime.getMinutes().toString();
@@ -19,7 +21,7 @@ module.exports.init = function(){
     return String(`[${h}:${m}:${s}]`);
   }
 
-  getSongs = function() {
+  function getSongs() {
     console.info('#blue{Getting last tracks...}');
     http.get({
         host: 'radiopleer.com',
@@ -45,16 +47,16 @@ module.exports.init = function(){
     });
   };
 
-  separateSongs = function(songList) {
+  function separateSongs(songList) {
     songArray = songList.split(/\r\n|\r|\n/);
-    for (i = 0; i < songArray.length - 1; i++) {
+    for (var i = 0; i < songArray.length - 1; i++) {
       //Removed brackers and fullstop to prevent the RegExp from breaking
       songArray[i] = songArray[i].replace('<li>', '').replace('</li>', '').replace('(', '').replace(')', '').replace('{', '').replace('}', '').replace('.', '');
       songExists(songArray[i]);
     };
   };
 
-  songExists = function(song) {
+  function songExists(song) {
     Song.findOne({title: new RegExp(song.substring(6), 'i')}, function(err, res) {
       if (err) {
         return console.error('Cannot connect to DB: ', err);
@@ -68,7 +70,7 @@ module.exports.init = function(){
     });
   };
 
-  incrementCounter = function(song) {
+  function incrementCounter(song) {
     if (!((song.substring(0, 5) === existingSong.airTime) && (russianTime.toLocaleDateString() === existingSong.lastTimePlayed.toLocaleDateString()))) {
       Song.findOneAndUpdate(
         {title: new RegExp(song.substring(6), 'i')},
@@ -84,7 +86,7 @@ module.exports.init = function(){
     }
   };
 
-  addNewSong = function(song) {
+  function addNewSong(song) {
     var newSong = new Song({
       title: song.substring(6),
       airTime: song.substring(0, 5),

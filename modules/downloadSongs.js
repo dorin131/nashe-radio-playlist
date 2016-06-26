@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports.init = function() {
   var download = require('url-download');
   var request = require('request');
@@ -9,7 +11,7 @@ module.exports.init = function() {
   var songsDownloaded = 0;
 
   //Get all songs
-  getAllSongs = function() {
+  function getAllSongs() {
     Song.find(function(err, songs) {
       if (err) {
         return next(err);
@@ -29,17 +31,17 @@ module.exports.init = function() {
           request(url, function (err, res, body) {
             var songUrl = getUrl('http://cdndl.zaycev.net/', body, '"');
             if (songUrl) {
-              setTimeout(downloadSong(songUrl), Math.random() * (5000 - 1000) + 1000);
+              setTimeout(() => {downloadSong(songUrl)}, Math.random() * 1000);
             } else {
-              setTimeout(goToNextSong(), Math.random() * (3000 - 1000) + 1000);
+              setTimeout(() => {goToNextSong()}, Math.random() * 1000);
             }
           });
         } else {
-          setTimeout(goToNextSong(), Math.random() * (3000 - 1000) + 1000);
+          setTimeout(() => {goToNextSong()}, Math.random() * 1000);
         }
       });
     } else {
-      setTimeout(goToNextSong(), Math.random() * (3000 - 1000) + 1000);
+      goToNextSong();
     }
   };
 
@@ -69,7 +71,7 @@ module.exports.init = function() {
       .on('invalid', function () {
         console.error('#red{Invalid URL:} ' + songUrl);
         //setTimeout(downloadSong(songUrl), 5000);
-        setTimeout(goToNextSong(), Math.random() * (3000 - 1000) + 1000);
+        setTimeout(() => {goToNextSong()}, Math.random() * 1000);
       })
   };
 
@@ -78,8 +80,8 @@ module.exports.init = function() {
     if (allSongs.length > currentSong){
       findSong();
     } else {
-      console.info('#green{Tried to download all songs. Getting full list again.}');
-      setTimeout(getAllSongs(), 80000 * 20);
+      console.info('#green{Tried to download all songs. Getting full list again in 20 minutes.}');
+      setTimeout(() => {getAllSongs()}, 80000 * 20);
     }
   };
 
